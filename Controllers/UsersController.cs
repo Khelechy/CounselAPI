@@ -28,8 +28,8 @@ namespace CounselApi.Controllers
 		[HttpGet]
 		public ActionResult <IEnumerable<UserReadDto>> GetAllUsers()
 		{
-			var UserItems = _repository.GetAllUsers();
-			return Ok(_mapper.Map<IEnumerable<UserReadDto>>(UserItems));
+			var userItems = _repository.GetAllUsers();
+			return Ok(_mapper.Map<IEnumerable<UserReadDto>>(userItems));
 		}
 
 		//Get api/users/{id}
@@ -45,17 +45,31 @@ namespace CounselApi.Controllers
 		}
 
 		//Post api/users
-		[HttpPost]
+		[HttpPost("register")]
 		public ActionResult<UserReadDto> CreateUser(UserCreateDto userCreateDto)
 		{
 			var userModel = _mapper.Map<User>(userCreateDto);
 			_repository.CreateUser(userModel);
-			_repository.SaveChanges();
+			var isRegistered = _repository.SaveChanges();
+
+			if (isRegistered != true)
+				return BadRequest(new { message = "could not register" });
 
 			var userReadDto = _mapper.Map<UserReadDto>(userModel);
 
 			return CreatedAtRoute(nameof(GetUserById), new { Id = userReadDto.Id }, userReadDto);
 			//return Ok(userReadDto);
+		}
+
+		[HttpPost("login")]
+		public ActionResult<UserReadDto> Login([FromBody] LoginModel model)
+		{
+			var user = _repository.Login(model.Email, model.Password);
+			if (user == null)
+				return NotFound(new { message = "Email or Password is Incorrect" });
+			var loginDto = _mapper.Map<UserReadDto>(user);
+			return Ok(loginDto);
+			
 		}
 	}
 }

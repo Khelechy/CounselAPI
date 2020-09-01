@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace CounselApi.Data
 {
-	public interface IUserRepo
+	public interface IRequestRepo
 	{
 		bool SaveChanges();
-		IEnumerable<User> GetAllUsers();
-		User GetUserById(int id);
-		void CreateUser(User user);
-
-		User Login(string email, string password);
+		IEnumerable<Request> GetAllRequest();
+		Request GetRequestById(int id);
+		void CreateRequest(Request request);
 	}
 }

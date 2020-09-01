@@ -3,14 +3,16 @@ using CounselApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CounselApi.Migrations
 {
     [DbContext(typeof(CounselContext))]
-    partial class CounselContextModelSnapshot : ModelSnapshot
+    [Migration("20200901192025_Request UserId Migration")]
+    partial class RequestUserIdMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

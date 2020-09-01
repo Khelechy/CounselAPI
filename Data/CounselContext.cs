@@ -15,5 +15,6 @@ namespace CounselApi.Data
 		}
 
 		public DbSet<User> Users { set; get; }
+		public DbSet<Request> Requests { set; get; }
 	}
 }
