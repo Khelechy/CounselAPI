@@ -46,9 +46,9 @@ namespace CounselApi.Controllers
 
 		}
 
-		//Post api/users
+		//Post api/request
 		[HttpPost("create")]
-		public ActionResult<Request> CreateUser([FromBody] RequestModel request)
+		public ActionResult<Request> CreateRequest([FromBody] RequestModel request)
 		{
 			
 			var user = _userRepo.GetUserById(request.UserId);
@@ -69,7 +69,6 @@ namespace CounselApi.Controllers
 				return BadRequest(new { message = "could not make request" });
 
 			return CreatedAtRoute(nameof(GetRequestById), new { Id = requestBody.Id }, requestBody);
-			//return Ok(userReadDto);
 		}
 	}
 }
